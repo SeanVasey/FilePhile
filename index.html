@@ -1122,7 +1122,6 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 
     // Security warning for HTML preview - comprehensive XSS detection
     if (type === 'html') {
-      const lower = el.txt.value.toLowerCase();
       const dangerous = [
         /<script[\s>]/i,           // <script> tags
         /on\w+\s*=/i,              // Event handlers (onclick, onerror, onload, etc.)
