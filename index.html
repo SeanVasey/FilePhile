@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; manifest-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; manifest-src 'self' data:;">
     <title>FilePhile v1.0 — Final</title>
     <meta name="description" content="FilePhile is a premium, single-page file generation studio for creating and downloading text-based files instantly.">
     <meta name="author" content="VASEY/AI">
@@ -26,7 +26,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
     <style>
 :root {
     --c1:#00F0E6;--c2:#00C4E6;--c3:#0077B6;
@@ -527,6 +527,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
     hist: [],
 
     saveTimer: null,
+    highlightTimer: null,
     lastDownload: 0,
     matches: [],
     matchIdx: -1
@@ -626,6 +627,11 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 
     if (t.endsWith('\n')) h += '\n';
     el.hl.innerHTML = h;
+  }
+
+  function highlightDebounced() {
+    clearTimeout(st.highlightTimer);
+    st.highlightTimer = setTimeout(() => highlight(), 100);
   }
 
   function stats() {
@@ -1112,6 +1118,13 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
     const type = detectLang(el.txt.value) || st.fmt;
     if (type !== 'html' && type !== 'svg') { toast('Only HTML/SVG', 'warn'); return; }
 
+    // Security warning for HTML preview
+    if (type === 'html' && el.txt.value.toLowerCase().includes('<script')) {
+      if (!confirm('⚠️ Warning: This HTML contains scripts that will execute in the preview window. Only preview trusted content. Continue?')) {
+        return;
+      }
+    }
+
     const blob = new Blob([el.txt.value], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
@@ -1119,9 +1132,13 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
   }
 
   // ---------- editor helpers ----------
-  function refreshAll(scrollSync = true) {
+  function refreshAll(scrollSync = true, immediate = false) {
     stats();
-    highlight();
+    if (immediate) {
+      highlight();
+    } else {
+      highlightDebounced();
+    }
     if (st.showLn) renderLineNumbers();
     if (scrollSync) syncScroll();
   }
