@@ -51,8 +51,8 @@ The Content Security Policy included the `'unsafe-eval'` directive in `script-sr
 
 ### 2. HTML Preview Function - Potential XSS Vector
 **Severity:** MEDIUM
-**Status:** ✅ FIXED with warning dialog
-**Location:** Lines 1108-1119 (preview function)
+**Status:** ✅ FIXED with comprehensive warning dialog
+**Location:** Lines 1121-1143 (preview function)
 
 **Issue:**
 The preview function opens user-provided HTML/SVG content in a new window without sanitization or user warning.
@@ -72,36 +72,72 @@ function preview() {
 - Limited scope (blob URL isolation) but still a risk
 
 **Fix Applied:**
-Added script detection and explicit user warning:
+Added comprehensive dangerous content detection with explicit user warning:
 ```javascript
-// Security warning for HTML preview
-if (type === 'html' && el.txt.value.toLowerCase().includes('<script')) {
-  if (!confirm('⚠️ Warning: This HTML contains scripts that will execute in the preview window. Only preview trusted content. Continue?')) {
-    return;
+// Security warning for HTML preview - comprehensive XSS detection
+if (type === 'html') {
+  const dangerous = [
+    /<script[\s>]/i,           // <script> tags
+    /on\w+\s*=/i,              // Event handlers (onclick, onerror, onload, etc.)
+    /javascript:/i,            // javascript: URLs
+    /<iframe[\s>]/i,           // iframes (can execute scripts via srcdoc)
+    /<object[\s>]/i,           // <object> tags
+    /<embed[\s>]/i,            // <embed> tags
+    /data:text\/html/i,        // Data URLs with HTML
+    /<meta.*http-equiv/i,      // Meta refresh redirects
+    /<form[\s>]/i              // Forms (potential for data exfiltration)
+  ];
+
+  const hasDangerous = dangerous.some(pattern => pattern.test(el.txt.value));
+
+  if (hasDangerous) {
+    if (!confirm('⚠️ Security Warning: This HTML contains potentially dangerous elements (scripts, event handlers, iframes, or forms)...')) {
+      return;
+    }
   }
 }
 ```
 
+**Detects:**
+- ✅ `<script>` tags (all variations)
+- ✅ Event handlers (`onclick`, `onerror`, `onload`, etc.)
+- ✅ `javascript:` protocol URLs
+- ✅ `<iframe>` tags (can execute scripts via srcdoc)
+- ✅ `<object>` and `<embed>` tags
+- ✅ Data URLs with HTML content
+- ✅ Meta refresh redirects
+- ✅ `<form>` tags (data exfiltration risk)
+
 **Justification:**
 - Blob URLs provide origin isolation
 - Preview function is an intentional feature for testing HTML
+- Comprehensive detection catches multiple XSS vectors
 - Warning educates users about the security implications
 - Allows legitimate use while preventing accidental execution of untrusted code
 
 ### 3. Privacy Enhancement - Referrer Policy
 **Severity:** LOW-MEDIUM (Privacy)
 **Status:** ✅ FIXED
-**Location:** Line 29 (Google Fonts stylesheet link)
+**Location:** Line 31 (Google Fonts stylesheet link)
 
 **Issue:**
 External font loading could leak referrer information to Google.
 
 **Fix Applied:**
 ```html
+<!-- Note: SRI not used for Google Fonts as CSS content varies by user-agent.
+     For maximum security, consider self-hosting fonts. -->
 <link href="https://fonts.googleapis.com/css2?family=..."
       rel="stylesheet"
       referrerpolicy="no-referrer">
 ```
+
+**Why No SRI for Google Fonts:**
+Subresource Integrity (SRI) cannot be applied to Google Fonts because:
+- Google dynamically serves different CSS based on user-agent
+- Hash changes per browser, making static SRI impractical
+- Alternative: Self-host fonts for maximum security (documented in comment)
+- Current mitigation: `referrerpolicy="no-referrer"` protects privacy
 
 ---
 
@@ -306,18 +342,27 @@ Currently re-renders all line numbers on every cursor move. Could optimize to on
 
 ### Files Modified
 - `index.html` - All security and performance fixes applied
+- `SECURITY_REVIEW.md` - Complete audit documentation
 
 ### Changes Made
 1. **Removed `'unsafe-eval'` from CSP** (Critical fix)
-2. **Added security warning to preview function** (Medium fix)
+2. **Added comprehensive XSS detection to preview function** (Medium fix - Enhanced)
+   - Detects `<script>`, event handlers, `javascript:` URLs, iframes, objects, embeds, data URLs, meta redirects, and forms
 3. **Added `referrerpolicy="no-referrer"` to Google Fonts** (Privacy fix)
-4. **Implemented debounced highlighting** (Performance optimization)
-5. **Added `highlightTimer` to state management**
-6. **Updated `refreshAll` function** to support immediate/debounced modes
+4. **Added SRI limitation documentation** for Google Fonts
+5. **Implemented debounced highlighting** (Performance optimization)
+6. **Added `highlightTimer` to state management**
+7. **Updated `refreshAll` function** to support immediate/debounced modes
 
 ### Testing Recommendations
 - ✅ Verify CSP doesn't break functionality (no console errors)
-- ✅ Test preview warning appears with `<script>` tags
+- ✅ Test preview warning appears with all dangerous patterns:
+  - `<script>` tags
+  - Event handlers (`onclick="alert(1)"`)
+  - `javascript:` URLs (`<a href="javascript:alert(1)">`)
+  - `<iframe>`, `<object>`, `<embed>` tags
+  - Data URLs with HTML
+  - `<form>` tags
 - ✅ Verify typing performance with large files (>100KB)
 - ✅ Test file upload with various extensions
 - ✅ Verify download functionality works correctly
