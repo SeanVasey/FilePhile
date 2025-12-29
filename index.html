@@ -26,6 +26,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Note: SRI not used for Google Fonts as CSS content varies by user-agent.
+         For maximum security, consider self-hosting fonts. -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
     <style>
 :root {
@@ -1118,10 +1120,27 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
     const type = detectLang(el.txt.value) || st.fmt;
     if (type !== 'html' && type !== 'svg') { toast('Only HTML/SVG', 'warn'); return; }
 
-    // Security warning for HTML preview
-    if (type === 'html' && el.txt.value.toLowerCase().includes('<script')) {
-      if (!confirm('⚠️ Warning: This HTML contains scripts that will execute in the preview window. Only preview trusted content. Continue?')) {
-        return;
+    // Security warning for HTML preview - comprehensive XSS detection
+    if (type === 'html') {
+      const lower = el.txt.value.toLowerCase();
+      const dangerous = [
+        /<script[\s>]/i,           // <script> tags
+        /on\w+\s*=/i,              // Event handlers (onclick, onerror, onload, etc.)
+        /javascript:/i,            // javascript: URLs
+        /<iframe[\s>]/i,           // iframes (can execute scripts via srcdoc)
+        /<object[\s>]/i,           // <object> tags
+        /<embed[\s>]/i,            // <embed> tags
+        /data:text\/html/i,        // Data URLs with HTML
+        /<meta.*http-equiv/i,      // Meta refresh redirects
+        /<form[\s>]/i              // Forms (potential for data exfiltration)
+      ];
+
+      const hasDangerous = dangerous.some(pattern => pattern.test(el.txt.value));
+
+      if (hasDangerous) {
+        if (!confirm('⚠️ Security Warning: This HTML contains potentially dangerous elements (scripts, event handlers, iframes, or forms) that will execute in the preview window.\n\nOnly preview content from trusted sources.\n\nContinue?')) {
+          return;
+        }
       }
     }
 
