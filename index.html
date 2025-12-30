@@ -19,10 +19,13 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="color-scheme" content="dark light">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300F0E6'/%3E%3Cstop offset='100%25' stop-color='%230077B6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='100' fill='%2309090b'/%3E%3Cpath d='M120 120 H320 L440 240 V440 H120 Z' fill='none' stroke='url(%23g)' stroke-width='40' stroke-linejoin='round'/%3E%3Cpath d='M320 120 V240 H440' fill='none' stroke='url(%23g)' stroke-width='40' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300F0E6'/%3E%3Cstop offset='100%25' stop-color='%230077B6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' fill='%2309090b'/%3E%3Cpath d='M42 42H112L154 84' stroke='url(%23g)' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3Cpath d='M42 42V138H138V84H102V42' stroke='url(%23g)' stroke-width='10' stroke-linejoin='round' stroke-linecap='round' fill='none'/%3E%3Cpath d='M66 90H114M66 114H98' stroke='url(%23g)' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E">
-    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22FilePhile%22%2C%22short_name%22%3A%22FilePhile%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2309090b%22%2C%22theme_color%22%3A%22%2309090b%22%2C%22orientation%22%3A%22portrait-primary%22%7D">
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1400,6 +1403,21 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+</script>
+
+<!-- PWA Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('✓ ServiceWorker registered:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('✗ ServiceWorker registration failed:', error);
+      });
+  });
+}
 </script>
 </body>
 </html>
