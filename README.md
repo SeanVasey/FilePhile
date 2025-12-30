@@ -1,6 +1,6 @@
 <div align="center">
 
-![FilePhile Cover](cover.png)
+![FilePhile Cover](assets/images/cover.png)
 
 # FilePhile v1.0
 
@@ -10,7 +10,7 @@ Create and download text-based files instantly with powerful features and a beau
 
 [![GitHub](https://img.shields.io/badge/GitHub-FilePhile-00F0E6?style=for-the-badge&logo=github)](https://github.com/SeanVasey/FilePhile)
 [![License](https://img.shields.io/badge/License-MIT-0077B6?style=for-the-badge)](LICENSE)
-[![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](SECURITY_REVIEW.md)
+[![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](docs/SECURITY_REVIEW.md)
 
 [Features](#-features) • [Getting Started](#-getting-started) • [Usage](#-usage-tips) • [Security](#-security) • [Contributing](#-contributing)
 
@@ -36,9 +36,27 @@ Create and download text-based files instantly with powerful features and a beau
 - **🔒 Security First** - Comprehensive XSS protection and CSP
 - **📱 PWA Ready** - Progressive Web App support
 
+## 📁 Project Structure
+
+```
+FilePhile/
+├── index.html              # Main application (single-page app)
+├── manifest.json           # PWA manifest
+├── sw.js                   # Service worker for offline support
+├── assets/
+│   ├── icons/              # App icons (SVG and PNG)
+│   └── images/             # Images and graphics
+├── scripts/                # Build and development scripts
+│   └── generate-icons.js   # Icon generator for PWA
+└── docs/                   # Documentation
+    ├── PWA_SETUP.md
+    ├── SECURITY_REVIEW.md
+    └── SECURITY_ENHANCEMENTS_SUMMARY.md
+```
+
 ## 🚀 Getting Started
 
-No build step required! FilePhile is a single HTML file that runs directly in your browser.
+FilePhile is a modern single-page application with PWA support.
 
 ### Quick Start
 
