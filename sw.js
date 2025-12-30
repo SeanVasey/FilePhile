@@ -15,14 +15,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Opened cache');
-        // Cache files but don't fail if some are missing (like icons during initial setup)
-        return cache.addAll(urlsToCache.filter(url => url !== '/icon-192.png' && url !== '/icon-512.png' && url !== '/apple-touch-icon.png'))
-          .then(() => {
-            // Try to add icons if they exist, but don't fail if they don't
-            return Promise.allSettled(
-              ['/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'].map(url => cache.add(url))
-            );
-          });
+        return cache.addAll(urlsToCache);
       })
   );
   self.skipWaiting();
@@ -70,6 +63,9 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME)
             .then((cache) => {
               cache.put(event.request, responseToCache);
+            })
+            .catch((error) => {
+              console.error('Failed to cache response:', error);
             });
 
           return response;

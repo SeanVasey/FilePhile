@@ -9,7 +9,7 @@ FilePhile is now configured as a fully functional Progressive Web App (PWA) with
 - Proper app metadata (name, description, theme colors)
 - Icon references at multiple sizes (180x180, 192x192, 512x512)
 - Standalone display mode for app-like experience
-- Portrait-primary orientation
+- Flexible orientation (adapts to device)
 
 ### 2. Generated PWA Icons
 Created optimized PNG icons from the FilePhile logo SVG:
@@ -19,7 +19,7 @@ Created optimized PNG icons from the FilePhile logo SVG:
 
 ### 3. Implemented Service Worker (`sw.js`)
 - Caches essential app files for offline access
-- Provides network-first strategy with cache fallback
+- Provides cache-first strategy with network fallback
 - Enables app installation and offline functionality
 - Auto-updates when new versions are deployed
 
@@ -87,8 +87,9 @@ All icons follow PWA and iOS best practices:
 - 512x512: High-res displays, splash screens
 
 ### Service Worker Strategy:
-- **Cache-first** for static assets (HTML, CSS, JS)
-- **Network-first** with cache fallback for dynamic content
+- **Cache-first** for all requests with network fallback
+- Serves cached content immediately when available
+- Falls back to network if not in cache, then caches the response
 - Automatic cache cleanup on version updates
 
 ## Development

@@ -21,8 +21,8 @@ async function generateIcons() {
     try {
       sharp = require('sharp');
     } catch (e) {
-      console.log('⚠️  Sharp package not found. Installing...');
-      console.log('Run: npm install sharp');
+      console.error('❌ Sharp package not found.');
+      console.log('Please install it by running: npm install sharp');
       console.log('Then run this script again.');
       process.exit(1);
     }
@@ -44,14 +44,16 @@ async function generateIcons() {
 
     console.log('🎨 Generating PWA icons...\n');
 
-    for (const { size, name } of sizes) {
-      await sharp(svgBuffer)
-        .resize(size, size)
-        .png()
-        .toFile(path.join(__dirname, name));
+    await Promise.all(
+      sizes.map(async ({ size, name }) => {
+        await sharp(svgBuffer)
+          .resize(size, size)
+          .png()
+          .toFile(path.join(__dirname, name));
 
-      console.log(`✓ Created ${name} (${size}x${size})`);
-    }
+        console.log(`✓ Created ${name} (${size}x${size})`);
+      })
+    );
 
     console.log('\n✅ All icons generated successfully!');
     console.log('📱 Your PWA is now ready for iOS installation.');
