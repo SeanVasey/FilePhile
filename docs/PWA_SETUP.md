@@ -92,16 +92,39 @@ All icons follow PWA and iOS best practices:
 - Falls back to network if not in cache, then caches the response
 - Automatic cache cleanup on version updates
 
+## Project Structure
+
+```
+FilePhile/
+├── index.html              # Main application entry point
+├── manifest.json           # PWA manifest
+├── sw.js                   # Service worker
+├── assets/
+│   ├── icons/              # App icons (SVG and PNG)
+│   │   ├── icon.svg
+│   │   ├── icon-192.png
+│   │   ├── icon-512.png
+│   │   └── apple-touch-icon.png
+│   └── images/             # Other images
+│       └── cover.png
+├── scripts/                # Build and development scripts
+│   └── generate-icons.js
+└── docs/                   # Documentation
+    ├── PWA_SETUP.md
+    ├── SECURITY_REVIEW.md
+    └── SECURITY_ENHANCEMENTS_SUMMARY.md
+```
+
 ## Development
 
 ### Regenerating Icons
 If you need to update the icons:
 
 ```bash
-# Update icon.svg with your new design
+# Update assets/icons/icon.svg with your new design
 # Then run:
 npm install sharp
-node generate-icons.js
+node scripts/generate-icons.js
 ```
 
 ### Testing PWA Locally

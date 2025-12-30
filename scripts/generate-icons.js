@@ -27,10 +27,13 @@ async function generateIcons() {
       process.exit(1);
     }
 
-    const svgPath = path.join(__dirname, 'icon.svg');
+    // Project root is one level up from scripts/
+    const projectRoot = path.join(__dirname, '..');
+    const svgPath = path.join(projectRoot, 'assets', 'icons', 'icon.svg');
+    const outputDir = path.join(projectRoot, 'assets', 'icons');
 
     if (!fs.existsSync(svgPath)) {
-      console.error('❌ icon.svg not found!');
+      console.error('❌ icon.svg not found at:', svgPath);
       process.exit(1);
     }
 
@@ -46,10 +49,11 @@ async function generateIcons() {
 
     await Promise.all(
       sizes.map(async ({ size, name }) => {
+        const outputPath = path.join(outputDir, name);
         await sharp(svgBuffer)
           .resize(size, size)
           .png()
-          .toFile(path.join(__dirname, name));
+          .toFile(outputPath);
 
         console.log(`✓ Created ${name} (${size}x${size})`);
       })
