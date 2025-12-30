@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+/**
+ * Icon Generator for FilePhile PWA
+ *
+ * This script generates PNG icons from the SVG icon file for iOS PWA support.
+ *
+ * Requirements: Install sharp package first:
+ * npm install sharp
+ *
+ * Usage: node generate-icons.js
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+async function generateIcons() {
+  try {
+    // Try to load sharp
+    let sharp;
+    try {
+      sharp = require('sharp');
+    } catch (e) {
+      console.log('⚠️  Sharp package not found. Installing...');
+      console.log('Run: npm install sharp');
+      console.log('Then run this script again.');
+      process.exit(1);
+    }
+
+    const svgPath = path.join(__dirname, 'icon.svg');
+
+    if (!fs.existsSync(svgPath)) {
+      console.error('❌ icon.svg not found!');
+      process.exit(1);
+    }
+
+    const svgBuffer = fs.readFileSync(svgPath);
+
+    const sizes = [
+      { size: 180, name: 'apple-touch-icon.png' },
+      { size: 192, name: 'icon-192.png' },
+      { size: 512, name: 'icon-512.png' }
+    ];
+
+    console.log('🎨 Generating PWA icons...\n');
+
+    for (const { size, name } of sizes) {
+      await sharp(svgBuffer)
+        .resize(size, size)
+        .png()
+        .toFile(path.join(__dirname, name));
+
+      console.log(`✓ Created ${name} (${size}x${size})`);
+    }
+
+    console.log('\n✅ All icons generated successfully!');
+    console.log('📱 Your PWA is now ready for iOS installation.');
+
+  } catch (error) {
+    console.error('❌ Error generating icons:', error.message);
+    process.exit(1);
+  }
+}
+
+generateIcons();

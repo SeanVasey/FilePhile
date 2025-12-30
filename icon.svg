@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0E6"/>
+      <stop offset="50%" stop-color="#00C4E6"/>
+      <stop offset="100%" stop-color="#0077B6"/>
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b9d"/>
+      <stop offset="100%" stop-color="#c44569"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="#09090b"/>
+  <path d="M100 80 H300 L412 192 V432 H100 Z" fill="none" stroke="url(#logoGrad)" stroke-width="28" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M300 80 V192 H412" fill="none" stroke="url(#logoGrad)" stroke-width="28" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M150 280 H360" stroke="url(#logoGrad)" stroke-width="20" stroke-linecap="round" opacity="0.6"/>
+  <path d="M150 340 H320" stroke="url(#logoGrad)" stroke-width="20" stroke-linecap="round" opacity="0.4"/>
+  <path d="M340 120 C340 100, 360 90, 375 105 C390 90, 410 100, 410 120 C410 145, 375 170, 375 170 C375 170, 340 145, 340 120 Z" fill="url(#heartGrad)"/>
+</svg>
