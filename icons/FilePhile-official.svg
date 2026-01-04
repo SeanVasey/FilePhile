@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- FilePhile Official Icon - VASEY/AI -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 512 512" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<linearGradient gradientTransform="matrix(217.358 276.684 -276.684 217.358 0 256)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#222222"/>
+<stop offset="1" stop-color="#0c0c0c"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(340 380 -340 380 86 66)" gradientUnits="userSpaceOnUse" id="LinearGradient_2" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#00f0e6"/>
+<stop offset="0.5" stop-color="#00c4e6"/>
+<stop offset="1" stop-color="#0077b6"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(340 380 -340 380 86 66)" gradientUnits="userSpaceOnUse" id="LinearGradient_3" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#00f0e6"/>
+<stop offset="0.5" stop-color="#00c4e6"/>
+<stop offset="1" stop-color="#0077b6"/>
+</linearGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="474.977" id="Filter" width="434.977" x="38.5115" y="18.5115">
+<feDropShadow dx="0" dy="0" flood-color="#00a8d5" flood-opacity="0.35" in="SourceGraphic" result="Shadow" stdDeviation="18.9954"/>
+</filter>
+<linearGradient gradientTransform="matrix(140 140 -140 140 286 66)" gradientUnits="userSpaceOnUse" id="LinearGradient_4" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#00f0e6"/>
+<stop offset="0.5" stop-color="#00c4e6"/>
+<stop offset="1" stop-color="#0077b6"/>
+</linearGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="280.153" id="Filter_2" width="410.153" x="50.7655" y="195.281">
+<feDropShadow dx="0.841979" dy="25.3576" flood-color="#073f4e" flood-opacity="0.75" in="SourceGraphic" result="Shadow" stdDeviation="40.0306"/>
+</filter>
+<linearGradient gradientTransform="matrix(210 20 -210 20 150 270)" gradientUnits="userSpaceOnUse" id="LinearGradient_5" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#00f0e6"/>
+<stop offset="0.5" stop-color="#00c4e6"/>
+<stop offset="1" stop-color="#0077b6"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(170 20 -170 20 150 330)" gradientUnits="userSpaceOnUse" id="LinearGradient_6" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#00f0e6"/>
+<stop offset="0.5" stop-color="#00c4e6"/>
+<stop offset="1" stop-color="#0077b6"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(70 72.2222 -70 72.2222 340 97.7778)" gradientUnits="userSpaceOnUse" id="LinearGradient_7" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#ff6b9d"/>
+<stop offset="1" stop-color="#c44569"/>
+</linearGradient>
+</defs>
+<g id="FilePhile-Icon">
+<path d="M100 0L412 0C467.228 0 512 44.7715 512 100L512 412C512 467.228 467.228 512 412 512L100 512C44.7715 512 0 467.228 0 412L0 100C0 44.7715 44.7715 0 100 0Z" fill="url(#LinearGradient)" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M100 66C91 66 86 71 86 80L86 432C86 441 91 446 100 446L412 446C421 446 426 441 426 432L426 197.482C426 194.455 423.545 192 420.518 192L314 192C305 192 300 187 300 178L300 71.4824C300 68.4545 297.545 66 294.518 66L100 66ZM119.482 94C116.455 94 114 96.4545 114 99.4824L114 412.518C114 415.545 116.455 418 119.482 418L392.518 418C395.545 418 398 415.545 398 412.518L398 211.482C398 208.455 395.545 206 392.518 206L314 206C296 206 286 196 286 178L286 99.4824C286 96.4545 283.545 94 280.518 94L119.482 94Z" fill="url(#LinearGradient_3)" fill-rule="evenodd" filter="url(#Filter)" stroke="none"/>
+<path d="M299.069 66C299.583 66 300 66.4168 300 66.9309L300 178C300 187 305 192 314 192L425.069 192C425.583 192 426 192.417 426 192.931L426 205.069C426 205.583 425.583 206 425.069 206L314 206C296 206 286 196 286 178L286 66.9309C286 66.4168 286.417 66 286.931 66L299.069 66Z" fill="url(#LinearGradient_4)" fill-rule="nonzero" opacity="1" stroke="none" style="mix-blend-mode:lighten"/>
+<path d="M300 80L300 178C300 187 305 192 314 192L412 192L404 178L314 178L314 88L300 80Z" fill="#09090b" fill-rule="nonzero" opacity="0.3" stroke="none"/>
+<g filter="url(#Filter_2)">
+<path d="M160 270L350 270C355.523 270 360 274.477 360 280L360 280C360 285.523 355.523 290 350 290L160 290C154.477 290 150 285.523 150 280L150 280C150 274.477 154.477 270 160 270Z" fill="url(#LinearGradient_5)" fill-rule="nonzero" opacity="0.6" stroke="none"/>
+<path d="M160 330L310 330C315.523 330 320 334.477 320 340L320 340C320 345.523 315.523 350 310 350L160 350C154.477 350 150 345.523 150 340L150 340C150 334.477 154.477 330 160 330Z" fill="url(#LinearGradient_6)" fill-rule="nonzero" opacity="0.4" stroke="none"/>
+</g>
+<path d="M340 120C340 100 360 90 375 105C390 90 410 100 410 120C410 145 375 170 375 170C375 170 340 145 340 120Z" fill="url(#LinearGradient_7)" fill-rule="nonzero" opacity="1" stroke="#adadad" stroke-linecap="butt" stroke-linejoin="round" stroke-opacity="0.25" stroke-width="3.20374"/>
+</g>
+</svg>
