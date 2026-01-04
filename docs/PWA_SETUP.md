@@ -5,17 +5,20 @@ FilePhile is now configured as a fully functional Progressive Web App (PWA) with
 
 ## What Was Done
 
-### 1. Created PWA Manifest (`manifest.json`)
+### 1. Created PWA Manifest (`manifest.webmanifest`)
 - Proper app metadata (name, description, theme colors)
-- Icon references at multiple sizes (180x180, 192x192, 512x512)
+- Icon references at multiple sizes (48px to 1024px)
 - Standalone display mode for app-like experience
 - Flexible orientation (adapts to device)
+- Official FilePhile SVG icon support
 
-### 2. Generated PWA Icons
-Created optimized PNG icons from the FilePhile logo SVG:
-- `apple-touch-icon.png` (180x180) - For iOS home screen
-- `icon-192.png` (192x192) - For Android and general PWA use
-- `icon-512.png` (512x512) - For high-resolution displays and splash screens
+### 2. Official FilePhile Icons
+Includes comprehensive icon set with official FilePhile design:
+- `FilePhile-official.svg` - Vector icon for scalability
+- `apple-touch-icon*.png` (120, 152, 167, 180) - For iOS home screen (all sizes)
+- `icon-*.png` (48 to 1024px) - For Android, PWA, and various displays
+- `favicon-*.png` (16, 32) - For browser tabs
+- Windows tile support via `browserconfig.xml`
 
 ### 3. Implemented Service Worker (`sw.js`)
 - Caches essential app files for offline access
@@ -81,10 +84,13 @@ Created optimized PNG icons from the FilePhile logo SVG:
 - ✅ Viewport meta tag with viewport-fit=cover
 
 ### Icon Specifications:
-All icons follow PWA and iOS best practices:
+All icons follow PWA and iOS best practices with official FilePhile branding:
 - 180x180: iOS home screen (required)
 - 192x192: Android, Chrome, general PWA
 - 512x512: High-res displays, splash screens
+- 1024x1024: App store and high-DPI displays
+- Multiple sizes (48-384px) for various contexts
+- SVG support for scalability
 
 ### Service Worker Strategy:
 - **Cache-first** for all requests with network fallback
@@ -97,18 +103,16 @@ All icons follow PWA and iOS best practices:
 ```
 FilePhile/
 ├── index.html              # Main application entry point
-├── manifest.json           # PWA manifest
+├── manifest.webmanifest    # PWA manifest
 ├── sw.js                   # Service worker
-├── assets/
-│   ├── icons/              # App icons (SVG and PNG)
-│   │   ├── icon.svg
-│   │   ├── icon-192.png
-│   │   ├── icon-512.png
-│   │   └── apple-touch-icon.png
-│   └── images/             # Other images
-│       └── cover.png
-├── scripts/                # Build and development scripts
-│   └── generate-icons.js
+├── favicon.ico             # Browser favicon
+├── browserconfig.xml       # Windows tile configuration
+├── cover.png               # Repository cover image
+├── icons/                  # Official FilePhile icons (all sizes)
+│   ├── FilePhile-official.svg
+│   ├── icon-*.png          # Various sizes (48-1024px)
+│   ├── apple-touch-icon*.png
+│   └── favicon-*.png
 └── docs/                   # Documentation
     ├── PWA_SETUP.md
     ├── SECURITY_REVIEW.md
@@ -116,16 +120,6 @@ FilePhile/
 ```
 
 ## Development
-
-### Regenerating Icons
-If you need to update the icons:
-
-```bash
-# Update assets/icons/icon.svg with your new design
-# Then run:
-npm install sharp
-node scripts/generate-icons.js
-```
 
 ### Testing PWA Locally
 1. Serve over HTTPS (required for service workers)
@@ -142,8 +136,9 @@ node scripts/generate-icons.js
 ## Troubleshooting
 
 ### Icon not showing on iOS
-- Ensure `apple-touch-icon.png` is accessible
-- Check file is exactly 180x180 pixels
+- Ensure `icons/apple-touch-icon.png` is accessible
+- Check file is correctly sized (180x180 pixels)
+- Verify all icon references in `index.html` point to `/icons/` directory
 - Clear Safari cache and re-add to home screen
 
 ### Service Worker not registering
@@ -153,8 +148,9 @@ node scripts/generate-icons.js
 
 ### App not installing
 - Check all PWA requirements are met using Lighthouse
-- Verify manifest.json is valid JSON
+- Verify `manifest.webmanifest` is valid JSON
 - Ensure icons are accessible and correct sizes
+- Check that service worker is registered successfully
 
 ## Production Checklist
 
