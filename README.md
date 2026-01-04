@@ -1,6 +1,6 @@
 <div align="center">
 
-![FilePhile Cover](assets/images/cover.png)
+![FilePhile Cover](cover.png)
 
 # FilePhile v1.0
 
@@ -9,7 +9,7 @@
 Create and download text-based files instantly with powerful features and a beautiful interface.
 
 [![GitHub](https://img.shields.io/badge/GitHub-FilePhile-00F0E6?style=for-the-badge&logo=github)](https://github.com/SeanVasey/FilePhile)
-[![License](https://img.shields.io/badge/License-MIT-0077B6?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-0077B6?style=for-the-badge)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](docs/SECURITY_REVIEW.md)
 
 [Features](#-features) • [Getting Started](#-getting-started) • [Usage](#-usage-tips) • [Security](#-security) • [Contributing](#-contributing)
@@ -41,13 +41,16 @@ Create and download text-based files instantly with powerful features and a beau
 ```
 FilePhile/
 ├── index.html              # Main application (single-page app)
-├── manifest.json           # PWA manifest
+├── manifest.webmanifest    # PWA manifest
 ├── sw.js                   # Service worker for offline support
-├── assets/
-│   ├── icons/              # App icons (SVG and PNG)
-│   └── images/             # Images and graphics
-├── scripts/                # Build and development scripts
-│   └── generate-icons.js   # Icon generator for PWA
+├── favicon.ico             # Favicon
+├── browserconfig.xml       # Windows tile configuration
+├── cover.png               # Repository cover image
+├── icons/                  # Official FilePhile icons (all sizes)
+│   ├── FilePhile-official.svg
+│   ├── icon-*.png          # Various sizes (48-1024px)
+│   ├── apple-touch-icon*.png
+│   └── favicon-*.png
 └── docs/                   # Documentation
     ├── PWA_SETUP.md
     ├── SECURITY_REVIEW.md
@@ -123,19 +126,7 @@ FilePhile has been thoroughly audited for security vulnerabilities. See [SECURIT
 
 See [SECURITY_ENHANCEMENTS_SUMMARY.md](SECURITY_ENHANCEMENTS_SUMMARY.md) for enhancement details.
 
-## 📁 Project Structure
-
-```
-FilePhile/
-├── index.html                        # Complete application (single file)
-├── cover.png                         # Repository cover image
-├── README.md                         # This file
-├── LICENSE                           # MIT License
-├── SECURITY_REVIEW.md                # Complete security audit (400+ lines)
-└── SECURITY_ENHANCEMENTS_SUMMARY.md  # Security improvements summary
-```
-
-### Architecture
+## 🏗️ Architecture
 
 FilePhile is intentionally built as a **single HTML file** for:
 - ✅ **Easy Deployment** - Drop anywhere, no build process
@@ -197,7 +188,7 @@ Contributions are welcome! Please ensure:
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+Apache License 2.0 - see [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
