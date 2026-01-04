@@ -3,11 +3,11 @@ const CACHE_NAME = 'filephile-v1.0';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/assets/icons/icon.svg',
-  '/assets/icons/icon-192.png',
-  '/assets/icons/icon-512.png',
-  '/assets/icons/apple-touch-icon.png'
+  '/manifest.webmanifest',
+  '/icons/FilePhile-official.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/apple-touch-icon.png'
 ];
 
 // Install event - cache core files
