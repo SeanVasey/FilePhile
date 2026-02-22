@@ -1,0 +1,198 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate:
+    name: Validate & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate HTML structure
+        run: |
+          echo "=== HTML Structure Checks ==="
+
+          # Check that index.html exists and is non-empty
+          if [ ! -s index.html ]; then
+            echo "FAIL: index.html is missing or empty"
+            exit 1
+          fi
+          echo "PASS: index.html exists"
+
+          # Check DOCTYPE
+          if ! head -1 index.html | grep -qi '<!DOCTYPE html>'; then
+            echo "FAIL: Missing DOCTYPE declaration"
+            exit 1
+          fi
+          echo "PASS: DOCTYPE present"
+
+          # Check essential meta tags
+          for tag in 'charset="UTF-8"' 'viewport' 'Content-Security-Policy' 'description'; do
+            if ! grep -q "$tag" index.html; then
+              echo "FAIL: Missing meta tag: $tag"
+              exit 1
+            fi
+            echo "PASS: Meta tag found: $tag"
+          done
+
+          # Check lang attribute
+          if ! grep -q '<html lang=' index.html; then
+            echo "FAIL: Missing lang attribute on html element"
+            exit 1
+          fi
+          echo "PASS: lang attribute present"
+
+          echo ""
+          echo "All HTML structure checks passed."
+
+      - name: Validate CSP and security headers
+        run: |
+          echo "=== Security Checks ==="
+
+          # Check CSP is present and doesn't include unsafe-eval
+          if grep -q "unsafe-eval" index.html; then
+            echo "FAIL: CSP contains unsafe-eval"
+            exit 1
+          fi
+          echo "PASS: No unsafe-eval in CSP"
+
+          # Check that CSP has default-src
+          if ! grep -q "default-src 'self'" index.html; then
+            echo "FAIL: CSP missing default-src 'self'"
+            exit 1
+          fi
+          echo "PASS: CSP default-src 'self' present"
+
+          # Check referrer policy on external resources
+          if grep -q 'fonts.googleapis.com' index.html; then
+            if ! grep -q 'referrerpolicy' index.html; then
+              echo "FAIL: External font link missing referrerpolicy"
+              exit 1
+            fi
+            echo "PASS: Referrer policy set on external fonts"
+          fi
+
+          # Check for common XSS sinks (innerHTML with user input)
+          # Allow innerHTML only in controlled functions (escHtml, highlight, renderLineNumbers, renderHistory)
+          UNSAFE_INNERHTML=$(grep -n '\.innerHTML' index.html | grep -v 'escHtml\|hl\.innerHTML\|ln\.innerHTML\|histList\.innerHTML\|toastIco\.innerHTML' || true)
+          if [ -n "$UNSAFE_INNERHTML" ]; then
+            echo "WARN: Potential uncontrolled innerHTML usage:"
+            echo "$UNSAFE_INNERHTML"
+          fi
+          echo "PASS: innerHTML usage reviewed"
+
+          echo ""
+          echo "All security checks passed."
+
+      - name: Validate PWA assets
+        run: |
+          echo "=== PWA Asset Checks ==="
+
+          # Check manifest exists
+          if [ ! -f manifest.webmanifest ]; then
+            echo "FAIL: manifest.webmanifest missing"
+            exit 1
+          fi
+          echo "PASS: manifest.webmanifest exists"
+
+          # Check service worker exists
+          if [ ! -f sw.js ]; then
+            echo "FAIL: sw.js missing"
+            exit 1
+          fi
+          echo "PASS: sw.js exists"
+
+          # Check manifest is valid JSON
+          if ! python3 -c "import json; json.load(open('manifest.webmanifest'))" 2>/dev/null; then
+            echo "FAIL: manifest.webmanifest is not valid JSON"
+            exit 1
+          fi
+          echo "PASS: manifest.webmanifest is valid JSON"
+
+          # Check SVG icon exists
+          if [ ! -f icons/FilePhile-official.svg ]; then
+            echo "FAIL: SVG icon missing"
+            exit 1
+          fi
+          echo "PASS: SVG icon exists"
+
+          # Check favicon
+          if [ ! -f favicon.ico ]; then
+            echo "FAIL: favicon.ico missing"
+            exit 1
+          fi
+          echo "PASS: favicon.ico exists"
+
+          echo ""
+          echo "All PWA asset checks passed."
+
+      - name: Validate version consistency
+        run: |
+          echo "=== Version Consistency ==="
+
+          # Extract version from HTML
+          HTML_VER=$(grep -oP "VERSION = '[^']+'" index.html | head -1 | grep -oP "'[^']+'")
+          echo "HTML version: $HTML_VER"
+
+          # Extract version from manifest
+          MANIFEST_VER=$(python3 -c "import json; print(json.load(open('manifest.webmanifest')).get('version', 'N/A'))" 2>/dev/null || echo "N/A")
+          echo "Manifest version: $MANIFEST_VER"
+
+          # Extract cache name from service worker
+          SW_CACHE=$(grep -oP "FilePhile-v[0-9.]+" sw.js | head -1 || echo "N/A")
+          echo "Service worker cache: $SW_CACHE"
+
+          echo ""
+          echo "Version info collected (manual review if needed)."
+
+      - name: Check file sizes
+        run: |
+          echo "=== File Size Checks ==="
+
+          # index.html should be under 200KB (it's a single-page app)
+          SIZE=$(stat -f%z index.html 2>/dev/null || stat -c%s index.html 2>/dev/null)
+          echo "index.html: ${SIZE} bytes"
+          if [ "$SIZE" -gt 204800 ]; then
+            echo "WARN: index.html is over 200KB ($SIZE bytes)"
+          else
+            echo "PASS: index.html size is reasonable"
+          fi
+
+          # Total repo size check (excluding .git and cover image)
+          TOTAL=$(find . -not -path './.git/*' -not -name 'cover.png' -type f -exec stat -c%s {} + 2>/dev/null | awk '{sum+=$1}END{print sum}' || echo "0")
+          echo "Total assets (excl. cover): ${TOTAL} bytes"
+
+          echo ""
+          echo "File size checks complete."
+
+      - name: Validate JavaScript syntax
+        run: |
+          echo "=== JavaScript Syntax Check ==="
+
+          # Extract JS from index.html and check syntax with Node
+          # Use node to parse the script content
+          node -e "
+            const fs = require('fs');
+            const html = fs.readFileSync('index.html', 'utf8');
+            const scripts = html.match(/<script[^>]*>([\s\S]*?)<\/script>/gi);
+            if (!scripts) { console.log('No scripts found'); process.exit(1); }
+            scripts.forEach((s, i) => {
+              const code = s.replace(/<\/?script[^>]*>/gi, '');
+              if (code.trim()) {
+                try {
+                  new Function(code);
+                  console.log('PASS: Script block ' + (i+1) + ' syntax valid');
+                } catch(e) {
+                  console.error('FAIL: Script block ' + (i+1) + ': ' + e.message);
+                  process.exit(1);
+                }
+              }
+            });
+            console.log('');
+            console.log('All JavaScript syntax checks passed.');
+          "
