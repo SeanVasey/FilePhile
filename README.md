@@ -11,8 +11,13 @@ Create and download text-based files instantly with powerful features and a beau
 [![GitHub](https://img.shields.io/badge/GitHub-FilePhile-00F0E6?style=for-the-badge&logo=github)](https://github.com/SeanVasey/FilePhile)
 [![License](https://img.shields.io/badge/License-Apache%202.0-0077B6?style=for-the-badge)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](docs/SECURITY_REVIEW.md)
+[![CI](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/SeanVasey/FilePhile/actions/workflows/ci.yml)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/deploy-pages.yml?branch=main&style=for-the-badge&label=Deploy&logo=github&logoColor=white&color=00C4E6)](https://github.com/SeanVasey/FilePhile/actions/workflows/deploy-pages.yml)
+[![Version](https://img.shields.io/badge/Version-1.0--final-00F0E6?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
+[![PWA](https://img.shields.io/badge/PWA-Ready-0077B6?style=for-the-badge&logo=pwa&logoColor=white)](docs/PWA_SETUP.md)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-50fa7b?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
 
-[Features](#-features) • [Getting Started](#-getting-started) • [Usage](#-usage-tips) • [Security](#-security) • [Contributing](#-contributing)
+[Features](#-features) • [Getting Started](#-getting-started) • [Deployment](#-deployment) • [Usage](#-usage-tips) • [Security](#-security) • [Contributing](#-contributing)
 
 </div>
 
@@ -43,14 +48,19 @@ FilePhile/
 ├── index.html              # Main application (single-page app)
 ├── manifest.webmanifest    # PWA manifest
 ├── sw.js                   # Service worker for offline support
+├── vercel.json             # Vercel deployment config
 ├── favicon.ico             # Favicon
 ├── browserconfig.xml       # Windows tile configuration
 ├── cover.png               # Repository cover image
+├── CLAUDE.md               # Development guide for Claude Code
 ├── icons/                  # Official FilePhile icons (all sizes)
 │   ├── FilePhile-official.svg
 │   ├── icon-*.png          # Various sizes (48-1024px)
 │   ├── apple-touch-icon*.png
 │   └── favicon-*.png
+├── .github/workflows/      # CI/CD pipelines
+│   ├── ci.yml              # Validation & testing
+│   └── deploy-pages.yml    # GitHub Pages deployment
 └── docs/                   # Documentation
     ├── PWA_SETUP.md
     ├── SECURITY_REVIEW.md
@@ -75,9 +85,77 @@ start index.html
 
 Or simply **double-click** `index.html` to launch.
 
-### Live Demo
+### Install as PWA
 
-Open in your browser and start creating files instantly. All processing happens client-side - no server required!
+FilePhile works as a Progressive Web App. See the full [PWA Setup Guide](docs/PWA_SETUP.md).
+
+- **iOS:** Safari → Share → Add to Home Screen
+- **Android:** Chrome → Menu → Install App
+- **Desktop:** Chrome/Edge → address bar install icon
+
+## 🌐 Deployment
+
+FilePhile requires **no build step**. Deploy the repository root directly.
+
+### GitHub Pages
+
+Deployment is automated via GitHub Actions. On every push to `main`, the site is deployed to GitHub Pages.
+
+1. Go to **Settings → Pages** in your repository
+2. Under **Source**, select **GitHub Actions**
+3. Pushes to `main` will auto-deploy via the `deploy-pages.yml` workflow
+
+Your site will be live at: `https://<username>.github.io/FilePhile/`
+
+### Vercel
+
+A `vercel.json` is included with security headers and caching rules.
+
+1. Import the repository at [vercel.com/new](https://vercel.com/new)
+2. Framework Preset: **Other**
+3. Build Command: *(leave empty)*
+4. Output Directory: `.`
+5. Deploy
+
+The config provides:
+- Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`)
+- Service Worker cache-control (`no-cache` for `sw.js`)
+- Long-term caching for static icon assets
+- Clean URL routing
+
+### Netlify
+
+No configuration needed. Drag the repository folder into [Netlify Drop](https://app.netlify.com/drop) or connect via Git.
+
+### Any Static Host
+
+Upload all files to any static file host (S3, Cloudflare Pages, Firebase Hosting, etc.). No server-side processing is required.
+
+### Local Development Server
+
+For testing Service Worker and PWA features locally:
+
+```bash
+# Python
+python3 -m http.server 8000
+
+# Node.js (npx, no install needed)
+npx serve .
+```
+
+Then open `http://localhost:8000`.
+
+## 🔄 Versioning
+
+The current version is **v1.0-final**. Version identifiers are maintained in three locations:
+
+| Location | Key |
+|----------|-----|
+| `index.html` | `VERSION` constant in JavaScript |
+| `manifest.webmanifest` | `version` field |
+| `sw.js` | Cache name (`FilePhile-v1.0`) |
+
+When releasing a new version, update all three files and the service worker cache name to trigger cache invalidation on existing installs.
 
 ## 💡 Usage Tips
 
@@ -109,7 +187,7 @@ Over 40 file types supported including: `.js`, `.ts`, `.py`, `.css`, `.xml`, `.y
 
 ## 🔒 Security
 
-FilePhile has been thoroughly audited for security vulnerabilities. See [SECURITY_REVIEW.md](SECURITY_REVIEW.md) for the complete audit report.
+FilePhile has been thoroughly audited for security vulnerabilities. See [SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md) for the complete audit report.
 
 ### Security Features
 
@@ -124,7 +202,7 @@ FilePhile has been thoroughly audited for security vulnerabilities. See [SECURIT
 **Risk Level:** LOW (after security audit)
 **Security Status:** ✅ Production Ready
 
-See [SECURITY_ENHANCEMENTS_SUMMARY.md](SECURITY_ENHANCEMENTS_SUMMARY.md) for enhancement details.
+See [SECURITY_ENHANCEMENTS_SUMMARY.md](docs/SECURITY_ENHANCEMENTS_SUMMARY.md) for enhancement details.
 
 ## 🏗️ Architecture
 
@@ -170,9 +248,20 @@ Automatic language detection and highlighting for:
 - **Comprehensive Comments** - Inline documentation for security decisions
 - **Performance Optimized** - Debounced highlighting, efficient regex usage
 
+### Continuous Integration
+
+The CI pipeline (`.github/workflows/ci.yml`) runs on every push and PR to `main`:
+
+- **HTML Structure** - DOCTYPE, meta tags, lang attribute validation
+- **Security Checks** - CSP validation, no `unsafe-eval`, referrer policy, innerHTML audit
+- **PWA Assets** - Manifest JSON validity, service worker, icons present
+- **Version Consistency** - Cross-checks version across HTML, manifest, and service worker
+- **File Size** - Ensures index.html stays under 200KB
+- **JavaScript Syntax** - Validates all inline script blocks parse correctly
+
 ### Testing Checklist
 
-See [SECURITY_ENHANCEMENTS_SUMMARY.md](SECURITY_ENHANCEMENTS_SUMMARY.md) for the complete testing checklist including:
+See [SECURITY_ENHANCEMENTS_SUMMARY.md](docs/SECURITY_ENHANCEMENTS_SUMMARY.md) for the complete testing checklist including:
 - Security testing (XSS detection, CSP validation)
 - Performance testing (large files, rapid typing)
 - Functionality testing (all features and shortcuts)
