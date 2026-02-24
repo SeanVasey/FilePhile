@@ -52,7 +52,10 @@ FilePhile/
 ├── favicon.ico             # Favicon
 ├── browserconfig.xml       # Windows tile configuration
 ├── cover.png               # Repository cover image
-├── CLAUDE.md               # Development guide for Claude Code
+├── CLAUDE.md               # Development guide & standards
+├── CHANGELOG.md            # Version history (Keep a Changelog)
+├── SECURITY.md             # Vulnerability reporting policy
+├── .editorconfig           # Consistent editor settings
 ├── icons/                  # Official FilePhile icons (all sizes)
 │   ├── FilePhile-official.svg
 │   ├── icon-*.png          # Various sizes (48-1024px)
@@ -61,6 +64,9 @@ FilePhile/
 ├── .github/workflows/      # CI/CD pipelines
 │   ├── ci.yml              # Validation & testing
 │   └── deploy-pages.yml    # GitHub Pages deployment
+├── tasks/                  # Task tracking
+│   ├── todo.md             # Active task plan
+│   └── lessons.md          # Accumulated patterns
 └── docs/                   # Documentation
     ├── PWA_SETUP.md
     ├── SECURITY_REVIEW.md
@@ -187,7 +193,7 @@ Over 40 file types supported including: `.js`, `.ts`, `.py`, `.css`, `.xml`, `.y
 
 ## 🔒 Security
 
-FilePhile has been thoroughly audited for security vulnerabilities. See [SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md) for the complete audit report.
+FilePhile has been thoroughly audited for security vulnerabilities. To report a vulnerability, see [SECURITY.md](SECURITY.md). For the complete audit report, see [SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md).
 
 ### Security Features
 
