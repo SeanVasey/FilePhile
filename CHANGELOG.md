@@ -7,13 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [1.1] - 2026-03-15
 
 ### Changed
-- Updated app icon to new design (teal folder with document and heart badge)
-- Regenerated all PNG icons (48–1024px), apple-touch-icons, favicon.ico from corrected SVG source
+- Updated app icon to final design (teal folder with document and heart badge)
+- Regenerated all PNG icons (16–1024px), apple-touch-icons, favicon.ico from final `FilePhile-icon.svg`
 - Replaced inline SVG logo in header with `<img>` reference to external SVG
-- Updated `icons/FilePhile-official.svg` with corrected icon design
+- Updated `icons/FilePhile-official.svg` with final icon design
 - Apple-touch-icons use transparent backgrounds for proper light/dark mode support on iOS Home Screen
 - Added `html` root element background for notched screen safe area coverage in standalone PWA mode
 - Bumped Service Worker cache version to v1.1 to bust cached old icons
+- Removed redundant SVG files from repository root (consolidated to `icons/FilePhile-official.svg`)
 
 ## [1.0-final] - 2025-12-29
 
