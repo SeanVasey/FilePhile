@@ -1,5 +1,5 @@
-// FilePhile Service Worker v1.1
-const CACHE_NAME = 'filephile-v1.1';
+// FilePhile Service Worker v1.2
+const CACHE_NAME = 'filephile-v1.2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,7 +7,8 @@ const urlsToCache = [
   '/icons/FilePhile-official.svg',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
-  '/icons/apple-touch-icon.png'
+  '/icons/apple-touch-icon-light.png',
+  '/icons/apple-touch-icon-dark.png'
 ];
 
 // Install event - cache core files
