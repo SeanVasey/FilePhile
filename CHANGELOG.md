@@ -8,12 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 - Updated app icon to final design (teal folder with document and heart badge)
-- Regenerated all PNG icons (48–1024px), favicons, and favicon.ico from final SVG
-- Dual apple-touch-icon sets for iOS: light-bg (`#f5f5f7`) and dark-bg (`#09090b`) variants selected via `media="(prefers-color-scheme)"` on `<link>` tags
+- Simplified icon set: SVG favicon, single transparent `apple-touch-icon.png`, minimal PWA PNGs (192, 512, 512-maskable)
+- Transparent apple-touch-icon lets iOS 26 Liquid Glass automatically apply light/dark/clear/tinted masking
 - Replaced inline SVG logo in header with `<img>` reference to external SVG
 - Updated `icons/FilePhile-official.svg` with final icon design
 - Added `html` root element background for notched screen safe area coverage in standalone PWA mode
-- Bumped Service Worker cache version to v1.2 to bust cached old icons
+- Bumped Service Worker cache version to v1.3
 - Removed redundant SVG files from repository root (consolidated to `icons/FilePhile-official.svg`)
 
 ## [1.0-final] - 2025-12-29
