@@ -11,7 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Replaced all PNG icons (48–1024px), apple-touch-icons, and favicon.ico with new icon
 - Replaced inline SVG logo in header with `<img>` reference to external SVG
 - Updated `icons/FilePhile-official.svg` with new icon design
-- Apple-touch-icons now use transparent backgrounds for proper light/dark mode support on iOS Safari
+- Apple-touch-icons now use transparent backgrounds for proper light/dark mode support on iOS Home Screen
+- Added `html` root element background for notched screen safe area coverage in standalone PWA mode
 - Bumped Service Worker cache version to v1.1 to bust cached old icons
 
 ## [1.0-final] - 2025-12-29
