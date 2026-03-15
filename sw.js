@@ -1,5 +1,5 @@
-// FilePhile Service Worker v1.0
-const CACHE_NAME = 'filephile-v1.0';
+// FilePhile Service Worker v1.1
+const CACHE_NAME = 'filephile-v1.1';
 const urlsToCache = [
   '/',
   '/index.html',

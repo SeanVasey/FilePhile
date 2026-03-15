@@ -4,6 +4,16 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1] - 2026-03-15
+
+### Changed
+- Updated app icon to new design (teal folder with document and heart badge)
+- Replaced all PNG icons (48–1024px), apple-touch-icons, and favicon.ico with new icon
+- Replaced inline SVG logo in header with `<img>` reference to external SVG
+- Updated `icons/FilePhile-official.svg` with new icon design
+- Apple-touch-icons now use transparent backgrounds for proper light/dark mode support on iOS Safari
+- Bumped Service Worker cache version to v1.1 to bust cached old icons
+
 ## [1.0-final] - 2025-12-29
 
 ### Added
