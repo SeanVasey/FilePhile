@@ -172,4 +172,4 @@ Before deploying to production:
 
 ---
 
-**FilePhile v1.0** - Now available as a Progressive Web App! 📱
+**FilePhile v1.1** - Now available as a Progressive Web App! 📱

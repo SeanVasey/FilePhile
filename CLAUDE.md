@@ -10,7 +10,7 @@ FilePhile is a premium, single-page file generation studio for creating, editing
 
 - **Author:** VASEY/AI
 - **License:** Apache 2.0
-- **Version:** 1.0-final
+- **Version:** 1.1
 - **Status:** Production Ready (Security Audited)
 
 ---
@@ -156,7 +156,7 @@ All code lives in `index.html` (~1,490 lines):
 | File | Purpose |
 |------|---------|
 | `index.html` | Complete application |
-| `sw.js` | Service Worker (cache: `filephile-v1.0`) |
+| `sw.js` | Service Worker (cache: `filephile-v1.5`) |
 | `manifest.webmanifest` | PWA config, icon references |
 | `vercel.json` | Vercel deployment config |
 | `CLAUDE.md` | Development guide & standards |

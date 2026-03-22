@@ -2,7 +2,7 @@
 
 ![FilePhile Cover](cover.png)
 
-# FilePhile v1.0
+# FilePhile v1.1
 
 **Premium, single-page file generation studio**
 
@@ -13,7 +13,7 @@ Create and download text-based files instantly with powerful features and a beau
 [![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](docs/SECURITY_REVIEW.md)
 [![CI](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/SeanVasey/FilePhile/actions/workflows/ci.yml)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/deploy-pages.yml?branch=main&style=for-the-badge&label=Deploy&logo=github&logoColor=white&color=00C4E6)](https://github.com/SeanVasey/FilePhile/actions/workflows/deploy-pages.yml)
-[![Version](https://img.shields.io/badge/Version-1.0--final-00F0E6?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
+[![Version](https://img.shields.io/badge/Version-1.1-00F0E6?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
 [![PWA](https://img.shields.io/badge/PWA-Ready-0077B6?style=for-the-badge&logo=pwa&logoColor=white)](docs/PWA_SETUP.md)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-50fa7b?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
 
@@ -153,13 +153,13 @@ Then open `http://localhost:8000`.
 
 ## 🔄 Versioning
 
-The current version is **v1.0-final**. Version identifiers are maintained in three locations:
+The current version is **v1.1**. Version identifiers are maintained in three locations:
 
 | Location | Key |
 |----------|-----|
 | `index.html` | `VERSION` constant in JavaScript |
 | `manifest.webmanifest` | `version` field |
-| `sw.js` | Cache name (`FilePhile-v1.0`) |
+| `sw.js` | Cache name (`filephile-v1.5`) |
 
 When releasing a new version, update all three files and the service worker cache name to trigger cache invalidation on existing installs.
 
