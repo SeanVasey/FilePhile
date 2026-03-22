@@ -4,17 +4,19 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [1.1] - 2026-03-15
+## [1.1] - 2026-03-22
 
 ### Changed
 - Updated app icon to final design (teal folder with document and heart badge)
-- Simplified icon set: SVG favicon, single transparent `apple-touch-icon.png`, minimal PWA PNGs (192, 512, 512-maskable)
-- Transparent apple-touch-icon lets iOS 26 Liquid Glass automatically apply light/dark/clear/tinted masking
+- Fixed SVG viewBox to square dimensions (`974x974`) for consistent rendering in all icon contexts
+- Regenerated all PNG icons (favicon, apple-touch-icon, PWA icons, Windows tiles) from corrected square SVG
+- Added missing Windows tile icon sizes (72, 144, 384) for `browserconfig.xml`
+- Updated `cover.png` marketing banner with new icon
+- Simplified icon set: SVG favicon, single transparent `apple-touch-icon.png`, minimal PWA PNGs
+- Transparent apple-touch-icon lets iOS/Safari Add to Home Screen display correctly
 - Replaced inline SVG logo in header with `<img>` reference to external SVG
-- Updated `icons/FilePhile-official.svg` with final icon design
-- Added `html` root element background for notched screen safe area coverage in standalone PWA mode
-- Bumped Service Worker cache version to v1.3
-- Removed redundant SVG files from repository root (consolidated to `icons/FilePhile-official.svg`)
+- Bumped Service Worker cache to v1.5
+- Bumped app version from 1.0-final to 1.1 across all files and documentation
 
 ## [1.0-final] - 2025-12-29
 
