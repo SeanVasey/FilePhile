@@ -4,10 +4,12 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/icons/FilePhile-official.svg',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/apple-touch-icon.png'
+  '/icons/FilePhile-official.svg?v=1.7',
+  '/icons/icon-192.png?v=1.7',
+  '/icons/icon-512.png?v=1.7',
+  '/icons/icon-512-maskable.png?v=1.7',
+  '/icons/apple-touch-icon.png?v=1.7',
+  '/favicon.ico?v=1.7'
 ];
 
 // Install event - cache core files
