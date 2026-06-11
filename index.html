@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; manifest-src 'self' data:;">
-    <title>FilePhile v1.1</title>
+    <title>FilePhile v1.1.1</title>
     <meta name="description" content="FilePhile is a premium, single-page file generation studio for creating and downloading text-based files instantly.">
     <meta name="author" content="VASEY/AI">
     <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
@@ -99,7 +99,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--
 @keyframes histSlideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
 
 /* App Layout */
-.app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 2.5rem;padding-top:calc(2rem + env(safe-area-inset-top));padding-bottom:calc(2.5rem + env(safe-area-inset-bottom));padding-left:calc(1rem + env(safe-area-inset-left));padding-right:calc(1rem + env(safe-area-inset-right));transition:opacity .4s}
+.app{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 2.5rem;padding-top:calc(2rem + env(safe-area-inset-top));padding-bottom:calc(2.5rem + env(safe-area-inset-bottom));padding-left:calc(1rem + env(safe-area-inset-left));padding-right:calc(1rem + env(safe-area-inset-right));transition:opacity .4s}
 .app.zen header, .app.zen footer, .app.zen .ctrl, .app.zen .acts { display: none !important; }
 .app.zen main { max-width: 100%; height: 90vh; border:none; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; }
 .app.zen .ed-wrap { border: none; background: transparent; }
@@ -250,7 +250,7 @@ main{width:100%;max-width:960px;background:var(--panel-bg);backdrop-filter:blur(
 .toast.warn{border-color:var(--warn);color:var(--warn)}
 
 /* Modal */
-.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1rem}
+.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left))}
 .modal.show{display:flex}
 .modal-box{background:var(--panel-bg);border:1px solid var(--panel-border);border-radius:var(--radius);padding:2rem;max-width:440px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.6)}
 .modal h3{font-size:1.2rem;margin-bottom:1.5rem;color:var(--t1);display:flex;align-items:center;gap:.5rem}
@@ -391,7 +391,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
         <span class="brand">VASEY/AI PRESENTS</span>
         <div class="logo-wrap">
 <img class="logo" src="icons/FilePhile-official.svg?v=1.7" alt="FilePhile logo" width="48" height="48">
-            <h1>FilePhile<span class="ver">v1.1</span></h1>
+            <h1>FilePhile<span class="ver">v1.1.1</span></h1>
         </div>
         <p class="tagline">The premium file generation studio.</p>
     </header>
@@ -515,7 +515,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
         </a>
       </div>
       <div class="footer-suite-tag">A VASEY/AI Production</div>
-      <div class="footer-app-tag">FilePhile v1.1 &middot; File Generation Studio</div>
+      <div class="footer-app-tag">FilePhile v1.1.1 &middot; File Generation Studio</div>
       <div class="footer-copyright">
         &copy; 2026 <a href="https://vaseymultimedia.com" target="_blank" rel="noopener">VASEY Multimedia</a>. All rights reserved.<br>
         Designed &amp; engineered by <a href="https://vasey.ai" target="_blank" rel="noopener">VASEY/AI</a>
@@ -548,7 +548,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 (() => {
   'use strict';
 
-  const VERSION = '1.1';
+  const VERSION = '1.1.1';
   const STORAGE_KEY = 'filephile_v1';
   const PREFS_KEY = 'filephile_v1_prefs';
 
@@ -1549,7 +1549,9 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    // Relative path so the PWA works at both domain root (Vercel) and
+    // a subpath (GitHub Pages project site).
+    navigator.serviceWorker.register('sw.js')
       .then((registration) => {
         console.log('✓ ServiceWorker registered:', registration.scope);
       })
