@@ -1,5 +1,22 @@
 # FilePhile — Task Plan
 
+## Session: 2026-06-11
+
+### Completed
+- [x] Audit iOS safe areas — added `env(safe-area-inset-*)` padding to help modal, `100dvh` fallback on app container (toolbar, toast, zen mode already covered)
+- [x] Fix Service Worker for subpath hosting — relative registration path and relative precache URLs (GitHub Pages project sites previously got a 404 on `/sw.js`)
+- [x] Repair CI version-consistency step (case-sensitive grep never matched; now asserts VERSION ↔ manifest ↔ title)
+- [x] Add `version` field to manifest.webmanifest
+- [x] Remove duplicate `filephile.svg` from root (re-uploaded after prior cleanup)
+- [x] Release v1.1.1 — version bumped across index.html, manifest; SW cache bumped to v1.8; CHANGELOG entry added
+- [x] Update CLAUDE.md and README to match actual code layout (~1,565 lines, current section ranges, cache v1.8)
+- [x] Run all CI validation checks locally before push
+
+### Review
+Maintenance pass: PWA now works at both domain root and subpaths, iOS safe areas complete, CI version gate actually enforces consistency, docs match reality.
+
+---
+
 ## Session: 2026-03-23
 
 ### Completed

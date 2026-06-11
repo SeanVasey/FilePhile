@@ -2,7 +2,7 @@
 
 ![FilePhile Cover](cover.png)
 
-# FilePhile v1.1
+# FilePhile v1.1.1
 
 **Premium, single-page file generation studio**
 
@@ -10,7 +10,7 @@ Create and download text-based files instantly with powerful features and a beau
 
 [![CI](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/SeanVasey/FilePhile/actions/workflows/ci.yml)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/SeanVasey/FilePhile/deploy-pages.yml?branch=main&style=for-the-badge&label=Deploy&logo=github&logoColor=white&color=00C4E6)](https://github.com/SeanVasey/FilePhile/actions/workflows/deploy-pages.yml)
-[![Version](https://img.shields.io/badge/Version-1.1-00F0E6?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
+[![Version](https://img.shields.io/badge/Version-1.1.1-00F0E6?style=for-the-badge)](https://github.com/SeanVasey/FilePhile)
 [![License](https://img.shields.io/badge/License-Apache%202.0-0077B6?style=for-the-badge)](LICENSE)
 [![Security](https://img.shields.io/badge/Security-Audited-50fa7b?style=for-the-badge)](docs/SECURITY_REVIEW.md)
 [![PWA](https://img.shields.io/badge/PWA-Ready-0077B6?style=for-the-badge&logo=pwa&logoColor=white)](docs/PWA_SETUP.md)
@@ -157,7 +157,7 @@ Upload all files to any static host (Netlify, S3, Cloudflare Pages, Firebase Hos
 
 ## Architecture
 
-FilePhile is intentionally built as a **single HTML file** (~1,490 lines):
+FilePhile is intentionally built as a **single HTML file** (~1,565 lines):
 
 - **Easy Deployment** — Drop anywhere, no build process
 - **Offline Use** — Works without internet after initial load
@@ -165,10 +165,10 @@ FilePhile is intentionally built as a **single HTML file** (~1,490 lines):
 - **Zero Dependencies** — No npm packages or external scripts
 
 All code lives in `index.html`:
-- Lines 48–300: CSS (styles, themes, animations, responsive)
-- Lines 302–472: HTML structure (editor, toolbar, panels, modals)
-- Lines 474–1475: JavaScript (IIFE, state management, all logic)
-- Lines 1478–1491: Service Worker registration
+- Lines 42–380: CSS (styles, themes, animations, responsive)
+- Lines 382–545: HTML structure (editor, toolbar, panels, modals)
+- Lines 547–1546: JavaScript (IIFE, state management, all logic)
+- Lines 1548–1563: Service Worker registration
 
 ---
 
@@ -190,13 +190,13 @@ See [SECURITY_ENHANCEMENTS_SUMMARY.md](docs/SECURITY_ENHANCEMENTS_SUMMARY.md) fo
 
 ## Versioning
 
-Current version: **v1.1**. Version identifiers are maintained in three locations:
+Current version: **v1.1.1**. Version identifiers are maintained in three locations:
 
 | Location | Key |
 |----------|-----|
 | `index.html` | `VERSION` constant in JavaScript |
 | `manifest.webmanifest` | `version` field |
-| `sw.js` | Cache name (`filephile-v1.7`) |
+| `sw.js` | Cache name (`filephile-v1.8`) |
 
 Update all three files when releasing a new version. Changing the service worker cache name triggers cache invalidation on existing installs.
 

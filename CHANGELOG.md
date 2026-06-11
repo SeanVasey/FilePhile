@@ -4,6 +4,20 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.1] - 2026-06-11
+
+### Fixed
+- Service Worker now registers and precaches via relative URLs, fixing offline/PWA support when hosted at a subpath (e.g. GitHub Pages project sites); previously absolute paths (`/sw.js`, `/index.html`) 404'd and the worker never installed
+- Help modal now respects iOS safe areas (`env(safe-area-inset-*)`), preventing overlap with the notch and home indicator in landscape
+- App container uses `100dvh` fallback for correct height with iOS Safari's dynamic toolbar
+- CI version-consistency check was inert (case-sensitive grep never matched the `filephile-v*` cache name; manifest had no `version` field) — it now asserts that the `VERSION` constant, page title, and manifest version match and that the cache name is present
+
+### Changed
+- Added `version` field to `manifest.webmanifest`
+- Bumped Service Worker cache to v1.8 so installed clients pick up the new `index.html`
+- Removed duplicate `filephile.svg` from repo root (byte-identical, unreferenced copy of `icons/FilePhile-official.svg`)
+- Refreshed CLAUDE.md and README architecture notes (line counts, code layout ranges, cache name)
+
 ## [1.1] - 2026-03-22
 
 ### Changed
