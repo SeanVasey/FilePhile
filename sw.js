@@ -5,7 +5,7 @@ const CACHE_NAME = 'filephile-v1.8';
 const urlsToCache = [
   './',
   './index.html',
-  './manifest.webmanifest',
+  './manifest.webmanifest?v=1.7',
   './icons/FilePhile-official.svg?v=1.7',
   './icons/icon-192.png?v=1.7',
   './icons/icon-512.png?v=1.7',
