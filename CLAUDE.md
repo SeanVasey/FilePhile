@@ -10,7 +10,7 @@ FilePhile is a premium, single-page file generation studio for creating, editing
 
 - **Author:** VASEY/AI
 - **License:** Apache 2.0
-- **Version:** 1.1
+- **Version:** 1.1.1
 - **Status:** Production Ready (Security Audited)
 
 ---
@@ -29,7 +29,7 @@ FilePhile is a premium, single-page file generation studio for creating, editing
 Single `index.html` file containing all HTML, CSS, and JavaScript. No build process, no bundler, no npm packages.
 
 ```
-index.html              # Entire application (~1,490 lines)
+index.html              # Entire application (~1,565 lines)
 sw.js                   # Service Worker for offline/PWA support
 manifest.webmanifest    # PWA manifest
 vercel.json             # Vercel deployment config (security headers, caching)
@@ -58,10 +58,10 @@ tasks/                  # Task tracking (todo.md, lessons.md)
 
 ### Code Layout (index.html)
 
-- Lines 48–300: CSS (styles, themes, animations, scrollbars, responsive)
-- Lines 302–472: HTML structure (editor, toolbar, panels, modals)
-- Lines 474–1475: JavaScript (IIFE, state management, all logic)
-- Lines 1478–1491: Service Worker registration
+- Lines 42–380: CSS (styles, themes, animations, scrollbars, responsive)
+- Lines 382–545: HTML structure (editor, toolbar, panels, modals)
+- Lines 547–1546: JavaScript (IIFE, state management, all logic)
+- Lines 1548–1563: Service Worker registration
 
 ---
 
@@ -181,7 +181,7 @@ FilePhile/
 │   └── lessons.md          # Accumulated patterns
 │
 ├── index.html              # Complete application
-├── sw.js                   # Service Worker (cache: filephile-v1.7)
+├── sw.js                   # Service Worker (cache: filephile-v1.8)
 ├── manifest.webmanifest    # PWA config
 ├── vercel.json             # Vercel deployment config
 ├── favicon.ico
@@ -247,7 +247,7 @@ The README is the product's storefront. Treat it like a production release page.
 | File | Purpose |
 |------|---------|
 | `index.html` | Complete application |
-| `sw.js` | Service Worker (cache: `filephile-v1.7`) |
+| `sw.js` | Service Worker (cache: `filephile-v1.8`) |
 | `manifest.webmanifest` | PWA config, icon references |
 | `vercel.json` | Vercel deployment config |
 | `CLAUDE.md` | Development guide & standards |

@@ -1,15 +1,17 @@
-// FilePhile Service Worker v1.7
-const CACHE_NAME = 'filephile-v1.7';
+// FilePhile Service Worker v1.8
+const CACHE_NAME = 'filephile-v1.8';
+// Relative URLs (resolved against the SW location) so precaching works at
+// both domain root (Vercel) and a subpath (GitHub Pages project site).
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest',
-  '/icons/FilePhile-official.svg?v=1.7',
-  '/icons/icon-192.png?v=1.7',
-  '/icons/icon-512.png?v=1.7',
-  '/icons/icon-512-maskable.png?v=1.7',
-  '/icons/apple-touch-icon.png?v=1.7',
-  '/favicon.ico?v=1.7'
+  './',
+  './index.html',
+  './manifest.webmanifest?v=1.7',
+  './icons/FilePhile-official.svg?v=1.7',
+  './icons/icon-192.png?v=1.7',
+  './icons/icon-512.png?v=1.7',
+  './icons/icon-512-maskable.png?v=1.7',
+  './icons/apple-touch-icon.png?v=1.7',
+  './favicon.ico?v=1.7'
 ];
 
 // Install event - cache core files

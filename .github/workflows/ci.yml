@@ -135,20 +135,41 @@ jobs:
         run: |
           echo "=== Version Consistency ==="
 
-          # Extract version from HTML
-          HTML_VER=$(grep -oP "VERSION = '[^']+'" index.html | head -1 | grep -oP "'[^']+'")
+          # Extract version from HTML (JS VERSION constant)
+          HTML_VER=$(grep -oP "VERSION = '\K[^']+" index.html | head -1)
           echo "HTML version: $HTML_VER"
+          if [ -z "$HTML_VER" ]; then
+            echo "FAIL: Could not extract VERSION constant from index.html"
+            exit 1
+          fi
 
           # Extract version from manifest
-          MANIFEST_VER=$(python3 -c "import json; print(json.load(open('manifest.webmanifest')).get('version', 'N/A'))" 2>/dev/null || echo "N/A")
+          MANIFEST_VER=$(python3 -c "import json; print(json.load(open('manifest.webmanifest')).get('version', ''))")
           echo "Manifest version: $MANIFEST_VER"
+          if [ "$HTML_VER" != "$MANIFEST_VER" ]; then
+            echo "FAIL: index.html VERSION ($HTML_VER) != manifest version ($MANIFEST_VER)"
+            exit 1
+          fi
+          echo "PASS: index.html and manifest versions match"
 
-          # Extract cache name from service worker
-          SW_CACHE=$(grep -oP "FilePhile-v[0-9.]+" sw.js | head -1 || echo "N/A")
+          # Page title must carry the same version
+          if ! grep -q "<title>FilePhile v$HTML_VER</title>" index.html; then
+            echo "FAIL: <title> does not match version $HTML_VER"
+            exit 1
+          fi
+          echo "PASS: page title matches version"
+
+          # Extract cache name from service worker (own sequence, must exist)
+          SW_CACHE=$(grep -oP "filephile-v[0-9.]+" sw.js | head -1)
           echo "Service worker cache: $SW_CACHE"
+          if [ -z "$SW_CACHE" ]; then
+            echo "FAIL: Could not extract cache name from sw.js"
+            exit 1
+          fi
+          echo "PASS: service worker cache name present"
 
           echo ""
-          echo "Version info collected (manual review if needed)."
+          echo "All version consistency checks passed."
 
       - name: Check file sizes
         run: |

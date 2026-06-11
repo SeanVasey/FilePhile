@@ -4,6 +4,16 @@ Accumulated patterns from corrections and mistakes. Review at session start.
 
 ---
 
+## Session: 2026-06-11
+
+### Patterns
+- Service Worker paths must be relative (`register('sw.js')`, `./` precache URLs) because the app is deployed both at domain root (Vercel) and at a subpath (GitHub Pages project site). Absolute `/...` paths silently break the PWA on Pages.
+- Bump the `sw.js` cache name whenever `index.html` changes — the cache-first strategy otherwise serves the stale app to installed clients indefinitely.
+- The `?v=1.7` query strings on icon URLs are icon-revision cache busters, independent of the app version; only change them when icon files change, and keep `index.html`/`browserconfig.xml`/`sw.js` in sync.
+- Files removed during cleanup can reappear via GitHub web uploads ("Add files via upload" commits) — re-check for duplicates during maintenance passes.
+
+---
+
 ## Session: 2026-02-24 (Initial)
 
 ### Patterns
