@@ -6,9 +6,11 @@
 - [x] Mobile safe-area audit — found root canvas theming gap: `.light` lived on `<body>` so `<html>` (which paints status-bar/home-indicator regions and overscroll) stayed dark in light theme; moved class to `documentElement`
 - [x] Fix `theme-color` strategy — app forces dark start, so `prefers-color-scheme` media variants mismatched for OS-light users; single dark default now synced from computed `--bg` on toggle
 - [x] Release v1.1.2 — version bumped across index.html, manifest; SW cache bumped to v1.9; CHANGELOG entry added; docs synced
+- [x] Top safe-area scrim — fixed `.safe-top` layer (`height: env(safe-area-inset-top)`, z-index 250, `pointer-events: none`) masks content scrolling under the iOS status bar / notch; glass treatment (`color-mix` tint of `--bg` + `blur(var(--blur))`) keeps the fixed bg blobs seamless through the safe area; opaque `--bg` fallback where `color-mix` is unsupported
+- [x] Release v1.1.3 — version bumped across index.html, manifest; SW cache bumped to v1.10; CHANGELOG entry added; docs synced
 
 ### Review
-Safe-area audit follow-up to v1.1.1: insets were already complete; the remaining defects were theme/ownership bugs (html canvas color + browser-chrome color source), both now derived from the `--bg` token.
+Safe-area audit follow-up to v1.1.1: insets were already complete; the remaining defects were theme/ownership bugs (html canvas color + browser-chrome color source), both now derived from the `--bg` token. Follow-up scrim pass: no fixed header owns the top edge (the page header scrolls away), so a single fixed scrim was the right shape; `.app` keeps its existing one-time `env(safe-area-inset-top)` padding — the scrim is a paint-only overlay, so the inset is still applied exactly once. Needs an on-device sanity check (mobile Safari + installed PWA, both themes).
 
 ---
 

@@ -4,6 +4,14 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.3] - 2026-06-12
+
+### Fixed
+- Content no longer scrolls visibly through the iOS status bar / notch / Dynamic Island: a fixed top scrim (`height: env(safe-area-inset-top)`, `pointer-events: none`) now sits above page content. It uses the app's glass idiom — a translucent `var(--bg)` tint (`color-mix`) plus `backdrop-filter: blur(var(--blur))` — so the fixed background blobs continue through the safe area without a seam in either theme, while scrolling content blurs and fades out beneath the system status icons; engines without `color-mix` fall back to an opaque `var(--bg)` mask
+
+### Changed
+- Bumped Service Worker cache to v1.10 so installed clients pick up the new `index.html`
+
 ## [1.1.2] - 2026-06-12
 
 ### Fixed
