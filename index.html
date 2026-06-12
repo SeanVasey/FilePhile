@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; manifest-src 'self' data:;">
-    <title>FilePhile v1.1.1</title>
+    <title>FilePhile v1.1.2</title>
     <meta name="description" content="FilePhile is a premium, single-page file generation studio for creating and downloading text-based files instantly.">
     <meta name="author" content="VASEY/AI">
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+    <!-- App always starts dark regardless of OS preference; JS syncs this to --bg on theme toggle -->
+    <meta name="theme-color" content="#09090b">
 
     <!-- iOS PWA Configuration -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -79,7 +79,7 @@
     --accent-glow-strong:rgba(0,120,110,0.3);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{background:var(--bg);min-height:100vh;min-height:100dvh}
+html{background:var(--bg);min-height:100vh;min-height:100dvh;transition:background .3s}
 body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;min-height:100dvh;overflow-x:hidden;transition:background .3s,color .3s}
 
 /* Animated Background Blobs */
@@ -391,7 +391,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
         <span class="brand">VASEY/AI PRESENTS</span>
         <div class="logo-wrap">
 <img class="logo" src="icons/FilePhile-official.svg?v=1.7" alt="FilePhile logo" width="48" height="48">
-            <h1>FilePhile<span class="ver">v1.1.1</span></h1>
+            <h1>FilePhile<span class="ver">v1.1.2</span></h1>
         </div>
         <p class="tagline">The premium file generation studio.</p>
     </header>
@@ -515,7 +515,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
         </a>
       </div>
       <div class="footer-suite-tag">A VASEY/AI Production</div>
-      <div class="footer-app-tag">FilePhile v1.1.1 &middot; File Generation Studio</div>
+      <div class="footer-app-tag">FilePhile v1.1.2 &middot; File Generation Studio</div>
       <div class="footer-copyright">
         &copy; 2026 <a href="https://vaseymultimedia.com" target="_blank" rel="noopener">VASEY Multimedia</a>. All rights reserved.<br>
         Designed &amp; engineered by <a href="https://vasey.ai" target="_blank" rel="noopener">VASEY/AI</a>
@@ -548,7 +548,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 (() => {
   'use strict';
 
-  const VERSION = '1.1.1';
+  const VERSION = '1.1.2';
   const STORAGE_KEY = 'filephile_v1';
   const PREFS_KEY = 'filephile_v1_prefs';
 
@@ -1042,7 +1042,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 
   function loadPersisted() {
     // Force dark start every time.
-    document.body.classList.remove('light');
+    document.documentElement.classList.remove('light');
 
     // prefs
     try {
@@ -1395,10 +1395,21 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 
   // ---------- UI wiring ----------
   function toggleTheme() {
-    // Not persisted: always starts dark.
-    const light = document.body.classList.toggle('light');
+    // Not persisted: always starts dark. Class lives on <html> so the root
+    // canvas (status bar / home indicator safe areas, overscroll) themes too.
+    const light = document.documentElement.classList.toggle('light');
+    syncThemeColor();
     toast(light ? 'Light theme' : 'Dark theme');
     closeMenu();
+  }
+
+  function syncThemeColor() {
+    // Keep the browser/OS chrome (status bar, PWA title bar) matched to the
+    // active --bg token; the meta defaults to dark for first paint.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    if (bg) meta.setAttribute('content', bg);
   }
 
   function toggleMenu() {
@@ -1518,7 +1529,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 
   function init() {
     // Always dark on first paint.
-    document.body.classList.remove('light');
+    document.documentElement.classList.remove('light');
 
     // Defaults
     setWrap(true);
