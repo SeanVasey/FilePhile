@@ -1,5 +1,5 @@
 // FilePhile Service Worker v1.9
-const CACHE_NAME = 'filephile-v1.9';
+const CACHE_NAME = 'filephile-v1.10';
 // Relative URLs (resolved against the SW location) so precaching works at
 // both domain root (Vercel) and a subpath (GitHub Pages project site).
 const urlsToCache = [

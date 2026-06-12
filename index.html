@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; manifest-src 'self' data:;">
-    <title>FilePhile v1.1.2</title>
+    <title>FilePhile v1.1.3</title>
     <meta name="description" content="FilePhile is a premium, single-page file generation studio for creating and downloading text-based files instantly.">
     <meta name="author" content="VASEY/AI">
     <!-- App always starts dark regardless of OS preference; JS syncs this to --bg on theme toggle -->
@@ -89,6 +89,12 @@ body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--
 .blob:nth-child(2){width:50vw;height:50vw;background:var(--c1);bottom:-10%;right:-10%;animation-delay:-10s}
 .blob:nth-child(3){width:30vw;height:30vw;background:var(--c2);top:40%;left:40%;opacity:0.25;animation:float 15s infinite alternate-reverse ease-in-out}
 .light .blob{opacity:0.25}
+
+/* Top Safe-Area Scrim (iOS status bar / notch / Dynamic Island) */
+/* Glass tint (--bg via color-mix) + blur rather than an opaque fill so the fixed bg blobs
+   continue through the safe area without a seam; engines without color-mix fall back to
+   an opaque var(--bg) mask. z-index: above content/menus/toast (1/100/200), below modals (300). */
+.safe-top{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);z-index:250;pointer-events:none;background:var(--bg);background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
 
 @keyframes float{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(50px,50px) rotate(10deg)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -386,12 +392,14 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
     <div class="blob"></div>
 </div>
 
+<div class="safe-top" aria-hidden="true"></div>
+
 <div class="app" id="appRoot">
     <header>
         <span class="brand">VASEY/AI PRESENTS</span>
         <div class="logo-wrap">
 <img class="logo" src="icons/FilePhile-official.svg?v=1.7" alt="FilePhile logo" width="48" height="48">
-            <h1>FilePhile<span class="ver">v1.1.2</span></h1>
+            <h1>FilePhile<span class="ver">v1.1.3</span></h1>
         </div>
         <p class="tagline">The premium file generation studio.</p>
     </header>
@@ -515,7 +523,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
         </a>
       </div>
       <div class="footer-suite-tag">A VASEY/AI Production</div>
-      <div class="footer-app-tag">FilePhile v1.1.2 &middot; File Generation Studio</div>
+      <div class="footer-app-tag">FilePhile v1.1.3 &middot; File Generation Studio</div>
       <div class="footer-copyright">
         &copy; 2026 <a href="https://vaseymultimedia.com" target="_blank" rel="noopener">VASEY Multimedia</a>. All rights reserved.<br>
         Designed &amp; engineered by <a href="https://vasey.ai" target="_blank" rel="noopener">VASEY/AI</a>
@@ -548,7 +556,7 @@ footer kbd{padding:.15rem .4rem;background:var(--input-bg);border:1px solid var(
 (() => {
   'use strict';
 
-  const VERSION = '1.1.2';
+  const VERSION = '1.1.3';
   const STORAGE_KEY = 'filephile_v1';
   const PREFS_KEY = 'filephile_v1_prefs';
 
