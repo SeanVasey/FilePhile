@@ -12,6 +12,12 @@
 
     <!-- iOS PWA Configuration -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Dual-theme tradeoff: this Apple meta cannot be media-queried or changed at
+         runtime, so it is pinned to the app's dark-first launch scheme.
+         black-translucent lets the background paint under the status bar (no seam)
+         but always renders white glyphs — in the optional light theme (standalone
+         mode only) clock/battery contrast is reduced. Accepted: app forces a dark
+         start; light is an in-session toggle. -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FilePhile">
     <meta name="mobile-web-app-capable" content="yes">
