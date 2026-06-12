@@ -1,5 +1,17 @@
 # FilePhile — Task Plan
 
+## Session: 2026-06-12
+
+### Completed
+- [x] Mobile safe-area audit — found root canvas theming gap: `.light` lived on `<body>` so `<html>` (which paints status-bar/home-indicator regions and overscroll) stayed dark in light theme; moved class to `documentElement`
+- [x] Fix `theme-color` strategy — app forces dark start, so `prefers-color-scheme` media variants mismatched for OS-light users; single dark default now synced from computed `--bg` on toggle
+- [x] Release v1.1.2 — version bumped across index.html, manifest; SW cache bumped to v1.9; CHANGELOG entry added; docs synced
+
+### Review
+Safe-area audit follow-up to v1.1.1: insets were already complete; the remaining defects were theme/ownership bugs (html canvas color + browser-chrome color source), both now derived from the `--bg` token.
+
+---
+
 ## Session: 2026-06-11
 
 ### Completed

@@ -4,6 +4,15 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.2] - 2026-06-12
+
+### Fixed
+- Mobile safe areas now match the active theme: the `.light` class moved from `<body>` to `<html>`, so the root canvas (iOS status bar / Dynamic Island and home-indicator regions under `black-translucent`, plus overscroll bounce) paints the light `--bg` instead of staying dark
+- `theme-color` now reflects the in-app theme instead of the OS preference: the app forces a dark start, so the old `prefers-color-scheme` media variants gave OS-light users a mismatched light status-bar strip; replaced with a single dark default that JS syncs to the computed `--bg` token on theme toggle (also fixes the light value, which was `#f5f5f7` rather than the design token `#f0f2f5`)
+
+### Changed
+- Bumped Service Worker cache to v1.9 so installed clients pick up the new `index.html`
+
 ## [1.1.1] - 2026-06-11
 
 ### Fixed
