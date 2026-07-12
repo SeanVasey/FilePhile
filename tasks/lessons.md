@@ -4,6 +4,17 @@ Accumulated patterns from corrections and mistakes. Review at session start.
 
 ---
 
+## Session: 2026-07-12
+
+### Patterns
+- Never nest `backdrop-filter` surfaces: WebKit does not compose a blurred child inside a blurred parent. True glass (blur+saturate) only on top-level layers (main slab, dropdown, modal box, toast); nested panels use "fake glass" (top-light gradient + inset `--glass-edge` highlight).
+- iOS caches the home-screen web-clip icon at install time. Bumping `?v=` fixes new installs only — existing users must remove and re-add the icon. Since iOS 18, a transparent apple-touch-icon gets a system backplate (white/dark per appearance); pre-18 it composites to black.
+- A valid `.ico` can simply embed PNG blobs (ICONDIR + 16-byte entries + PNG data) — no ImageMagick/Pillow needed; ~30 lines of Node.
+- The official SVG's viewBox is non-square (974×925); any rasterization must center it on a square canvas or icons come out visibly off-center.
+- `main::before` overlays need `pointer-events:none` and children need `position:relative;z-index:1`, or the sheen layer eats clicks/paints over content.
+
+---
+
 ## Session: 2026-06-11
 
 ### Patterns

@@ -1,5 +1,17 @@
 # FilePhile — Task Plan
 
+## Session: 2026-07-12
+
+### Completed
+- [x] Liquid Glass aesthetic pass — tokenized blur scale + saturation, specular edges, refraction sheen on main slab, fake-glass gradients on nested surfaces, sheen-sweep primary button; logo, footer, and palette untouched
+- [x] Icon pipeline (`scripts/generate-icons.mjs`) — Chromium render of the official SVG on a square canvas; excess padding removed (~60% → ~90% glyph fill); transparent backgrounds kept (product decision, iOS 18+ adaptive backplate)
+- [x] Multi-size `favicon.ico` (16+32+48, PNG-embedded ICO, pure Node)
+- [x] Release v1.2.0 — versions, `?v=1.8` busters, SW cache v1.11, CHANGELOG, README, CLAUDE.md, PWA_SETUP.md synced
+
+### Deferred
+- [ ] If Android launchers render the transparent maskable icon on black, regenerate it with an opaque brand background (one-line change in the generator)
+- [ ] Consider opaque apple-touch-icon fallback if iOS < 18 usage matters
+
 ## Session: 2026-06-12
 
 ### Completed

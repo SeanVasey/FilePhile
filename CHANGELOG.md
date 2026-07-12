@@ -4,6 +4,22 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] - 2026-07-12
+
+### Added
+- Liquid Glass design system: tokenized blur scale (`--blur-sm/md/lg/xl`), saturation boost (`--sat`) on true-glass surfaces (main panel, dropdown menu, help modal, toast), specular top-edge highlights (`--glass-edge`) and a refraction sheen overlay (`--glass-sheen`) on the main slab, layered fake-glass gradients on nested surfaces (toolbar, find/history panels, format selector) — nested `backdrop-filter` is avoided because WebKit does not compose it
+- Sheen-sweep hover animation on the primary Download button; inset specular highlights on secondary buttons, toolbar buttons, segmented control, and version badge; recessed-glass inputs
+- `scripts/generate-icons.mjs`: reproducible icon pipeline (Chromium/Playwright render of the official SVG + pure-Node PNG-embedded ICO writer) with a built-in transparency/coverage self-check
+
+### Fixed
+- PWA icons no longer carry ~20% excess transparent padding: artwork now fills ~90% of standard icons (was ~60%), ~80% of the apple-touch-icon, and ~68% (safe zone) of the maskable icon, all centered on a square canvas despite the SVG's non-square 974×925 viewBox
+- iOS Add-to-Home-Screen icon: the transparent glyph is now sized for iOS 18+'s automatic adaptive backplate (white in light mode, dark in dark mode). Note: iOS caches the icon per install — remove and re-add the web clip to see the fix
+- `favicon.ico` is now a proper multi-size icon (16+32+48 px); it previously contained only a 16 px image while being declared as 32 px
+
+### Changed
+- Icon cache-busters bumped to `?v=1.8` across `index.html`, `manifest.webmanifest`, `sw.js`, and `browserconfig.xml`; manifest icons now declare explicit `purpose` values
+- Bumped Service Worker cache to v1.11 so installed clients pick up the new styles and icons
+
 ## [1.1.3] - 2026-06-12
 
 ### Fixed
