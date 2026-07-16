@@ -4,6 +4,17 @@ All notable changes to FilePhile will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- `filephile-icon-ios.svg`: master app icon — a self-contained, opaque, square (1024×1024) glass icon (rounded body, cyan edge glow, sheen) with the FilePhile mark composited inside the adaptive safe zone. This is now the single source of truth for every Home Screen / PWA / favicon raster.
+
+### Changed
+- iOS Add-to-Home-Screen and PWA install icons now render the new opaque app icon instead of a transparent glyph — no more black-square-behind-glyph on iOS <18 and no dependence on the system backplate. All `icons/icon-*.png`, `icons/icon-512-maskable.png`, `icons/apple-touch-icon.png`, and `favicon.ico` were re-rendered from `filephile-icon-ios.svg`
+- `scripts/generate-icons.mjs` now rasterizes the opaque master icon full-bleed (maskable variant gets an opaque `#04090B` backplate for spec compliance); the transparent `icons/FilePhile-official.svg` is intentionally reserved for the in-app logo and SVG browser-tab favicon, where a transparent background is ideal
+- `manifest.webmanifest` scalable icon entry now points to the opaque `filephile-icon-ios.svg` so installers that prefer SVG still get an opaque Home Screen icon; the icon is precached by the Service Worker
+- Icon cache-busters bumped to `?v=1.9` across `index.html`, `manifest.webmanifest`, `sw.js`, and `browserconfig.xml`; Service Worker cache bumped to `filephile-v1.12` so installed clients pick up the new icon set. Note: iOS caches the Home Screen icon per install — remove and re-add the web clip to see the change
+
 ## [1.2.0] - 2026-07-12
 
 ### Added

@@ -212,6 +212,7 @@ FilePhile/
 ├── vercel.json             # Vercel deployment config
 ├── favicon.ico             # Favicon
 ├── browserconfig.xml       # Windows tile configuration
+├── filephile-icon-ios.svg  # Master app icon (opaque; source for PWA/home-screen rasters)
 ├── cover.png               # Marketing banner
 ├── CLAUDE.md               # Development guide & standards
 ├── CHANGELOG.md            # Version history (Keep a Changelog)
@@ -220,10 +221,12 @@ FilePhile/
 ├── .editorconfig           # Editor settings
 ├── .gitignore              # Ignore patterns
 ├── icons/
-│   ├── FilePhile-official.svg
+│   ├── FilePhile-official.svg   # Transparent mark (in-app logo + SVG favicon)
 │   ├── icon-{72,144,192,384,512}.png
 │   ├── icon-512-maskable.png
 │   └── apple-touch-icon.png
+├── scripts/
+│   └── generate-icons.mjs  # Re-renders PWA rasters + favicon.ico from the master icon
 ├── .github/workflows/
 │   ├── ci.yml              # Validation & testing
 │   └── deploy-pages.yml    # GitHub Pages deployment
