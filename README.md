@@ -196,7 +196,7 @@ Current version: **v1.2.0**. Version identifiers are maintained in three locatio
 |----------|-----|
 | `index.html` | `VERSION` constant in JavaScript |
 | `manifest.webmanifest` | `version` field |
-| `sw.js` | Cache name (`filephile-v1.11`) |
+| `sw.js` | Cache name (`filephile-v1.13`) |
 
 Update all three files when releasing a new version. Changing the service worker cache name triggers cache invalidation on existing installs.
 
