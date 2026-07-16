@@ -14,21 +14,25 @@
  *
  * Design decisions (v1.2.0 icon refresh):
  * - SOURCE OF TRUTH is `filephile-icon-ios.svg` — a fully self-contained,
- *   square (1024x1024) "app icon": opaque glass body, rounded corners, cyan
- *   edge glow, and the FilePhile mark composited at ~74% (inside the adaptive
- *   safe zone). This is what iOS pins to the Home Screen and what Android/PWA
+ *   square (1024x1024) "app icon": a FULL-BLEED opaque border plate (edge-to-
+ *   edge cyan gradient border), a glass body with sheen and inner cyan edge
+ *   glow, and the FilePhile mark composited at ~78% (inside the adaptive safe
+ *   zone). This is what iOS pins to the Home Screen and what Android/PWA
  *   installs use, so every raster below renders it FULL-BLEED (no re-padding).
- *   Baking the background in fixes the old transparent-web-clip problem where
- *   iOS <18 rendered a black square behind a floating glyph.
+ *   Baking an opaque, edge-to-edge background in fixes the old transparent-
+ *   web-clip problem where iOS <18 rendered a black square behind a floating
+ *   glyph, and lets the platform apply its own squircle mask cleanly — light/
+ *   dark mode never shows through the corners.
  * - `icons/FilePhile-official.svg` (the transparent, background-less mark)
  *   remains the "optimized" icon and is intentionally NOT rasterized here: it
  *   is used only where a transparent background is ideal — the in-app logo and
  *   the SVG browser-tab favicon (it adapts to any tab background).
- * - icon-*.png / apple-touch-icon.png / favicon.ico keep the design's own
- *   rounded corners (transparent outside the body); iOS/browsers mask to taste.
+ * - icon-*.png / apple-touch-icon.png / favicon.ico are rendered edge-to-edge
+ *   opaque (the source's own border plate fills the tile); iOS/browsers apply
+ *   their own corner mask to taste.
  * - icon-512-maskable.png is composited on an OPAQUE backplate (#04090B, the
- *   body's darkest gradient stop) so it is edge-to-edge per the maskable spec;
- *   the mark stays within the ~80% safe zone.
+ *   body's darkest gradient stop) so it stays edge-to-edge per the maskable
+ *   spec; the mark stays within the ~80% safe zone.
  * - iOS caches Home Screen icons per install — bump the `?v=` cache-bust query
  *   in index.html / manifest / sw.js and re-add the web clip to force a refresh.
  */
@@ -109,7 +113,7 @@ writeFileSync(join(ROOT, 'favicon.ico'), Buffer.concat([header, ...entries, ...b
 console.log(`wrote favicon.ico (${ICO_SIZES.join('+')})`);
 
 // --- Self-check: corner alpha + mark bounding box, decoded via Chromium canvas ---
-console.log('\nself-check (transparent icons: corners alpha=0; maskable: corners opaque; coverage = non-empty bbox):');
+console.log('\nself-check (full-bleed opaque source => corners opaque, coverage ~100%; coverage = non-empty bbox):');
 for (const [out, size, opaque] of OUTPUTS) {
   const b64 = readFileSync(join(ROOT, out)).toString('base64');
   const r = await page.evaluate(async ([b64, size]) => {
